@@ -1,7 +1,9 @@
 import express from "express";
-import { path } from "path";
+import path from "path";
 import { connect } from "./db.js";
+import { URL as url } from "./models/url.js";
 import { router } from "./routes/url.js";
+
 const app = express();
 const PORT = 3000;
 
@@ -16,11 +18,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/url", router);
 app.use("/", router);
 
+//initialization of viewengine and set default view path
 app.set("view engine", "ejs");
-app.set("view", path.resolve("./views"));
+app.set("views", path.resolve("./views"));
 
-app.get("/", (req, res) => {
-	res.send("<h1>Welcome to URL Shortner API</h1>");
+app.get("/", async (req, res) => {
+	const result = await url.find({});
+	res.render("home", { urls: result });
 });
 app.listen(PORT, () => {
 	console.log(`Server listening on port ${PORT}`);
