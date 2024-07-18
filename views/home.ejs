@@ -7,11 +7,15 @@
 	</head>
 	<body>
 		<h1>Server Side Rendering</h1>
-
-		<ol>
-			<% urls.forEach(element => { %>
-			<li><%= element.shortID %></li>
-			<% }) %>
-		</ol>
+		<% if (locals.id) { %>
+		<p>
+			your Generated url : <a href="http://localhost:3000/<%=id %>"><%=id %></a>
+		</p>
+		<% } %>
+		<form action="/url" method="post">
+			<label for="url">Enter a URL:</label>
+			<input type="text" id="url" name="url" required />
+			<button type="submit">Submit</button>
+		</form>
 	</body>
 </html>

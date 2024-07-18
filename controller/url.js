@@ -11,7 +11,9 @@ async function handleGenerateUrl(req, res) {
 		visitHistory: [],
 	});
 
-	return res.json({ id: shortID });
+	res.render("home", {
+		id: shortID,
+	});
 }
 
 async function getGenerateUrl(req, res) {
@@ -30,6 +32,8 @@ async function getGenerateUrl(req, res) {
 	);
 	if (data) {
 		res.redirect(data.redirectURL);
+	} else {
+		res.status(404).json({ error: "Url not found" });
 	}
 }
 export { getGenerateUrl, handleGenerateUrl };

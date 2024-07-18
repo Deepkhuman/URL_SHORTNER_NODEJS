@@ -4,4 +4,5 @@ import { getGenerateUrl, handleGenerateUrl } from "../controller/url.js";
 
 router.post("/", handleGenerateUrl);
 router.get("/:shortID", getGenerateUrl);
+
 export { router };
